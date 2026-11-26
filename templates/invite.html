@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishAwareLab – Volunteer Email Invitation Module</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Shared Cybersecurity Theme CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="dashboard-wrapper invite-wrapper">
+        <!-- 1. Header -->
+        <header class="dashboard-header">
+            <div class="header-branding">
+                <div class="logo-shield">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </div>
+                <div class="header-titles">
+                    <div class="title-row">
+                        <h1>Volunteer Email Invitation Module</h1>
+                        <span class="badge-mini badge-green">GMAIL SMTP OUTREACH</span>
+                    </div>
+                    <p class="header-subtitle">PhishAwareLab • Transparent & Consensual Training Invitations</p>
+                </div>
+            </div>
+
+            <div class="header-telemetry">
+                <a href="/training?source=invite" target="_blank" class="btn btn-secondary btn-sm">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                    <span>View Training Page</span>
+                </a>
+                <a href="/" class="btn btn-secondary btn-sm">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    <span>Back to Dashboard</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- 2. SMTP Environment Status Banner -->
+        <section class="consent-notice-panel {% if smtp_configured %}smtp-status-ready{% else %}smtp-status-test{% endif %}">
+            <div class="consent-icon {% if smtp_configured %}icon-green{% else %}icon-orange{% endif %}">
+                {% if smtp_configured %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                {% else %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                {% endif %}
+            </div>
+            <div class="consent-text">
+                {% if smtp_configured %}
+                <h3 class="text-green">Gmail SMTP Credentials Active</h3>
+                <p>
+                    Outbound invitations will be sent via <strong>smtp.gmail.com:587</strong> from authorized account:
+                    <code class="text-blue">{{ masked_sender }}</code>. App Password is kept secure in memory and never exposed.
+                </p>
+                {% else %}
+                <h3 class="text-orange">Safe Test Mode Active (SMTP Environment Unset)</h3>
+                <p>
+                    To send live emails, set <code>GMAIL_USER</code> and <code>GMAIL_APP_PASSWORD</code> in your terminal before running Flask.
+                    <strong>Safe Test Mode is enabled below</strong>, allowing full message generation, recipient validation, and preview without sending real emails.
+                </p>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- 3. Main Grid: Form + Live Email Preview -->
+        <main class="invite-grid">
+            <!-- Left: Invitation Dispatch Form -->
+            <section class="panel invite-form-panel">
+                <div class="panel-header">
+                    <div class="panel-title-group">
+                        <div class="panel-icon icon-blue">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>Send Training Invitation</h2>
+                            <p class="panel-sub">Invite consenting volunteers to complete cybersecurity awareness</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="inviteForm" class="invite-form" onsubmit="return false;">
+                    <!-- Recipient Email -->
+                    <div class="form-group">
+                        <label for="recipientEmail" class="form-label">
+                            <span>Recipient Email Address</span>
+                            <span class="required-star">*</span>
+                        </label>
+                        <div class="input-wrap">
+                            <input
+                                type="email"
+                                id="recipientEmail"
+                                class="form-input"
+                                placeholder="volunteer@example.com"
+                                autocomplete="email"
+                                required
+                            >
+                        </div>
+                        <span class="input-hint">Must be a consenting volunteer email address.</span>
+                    </div>
+
+                    <!-- Optional Custom Note -->
+                    <div class="form-group">
+                        <label for="customNote" class="form-label">
+                            <span>Personalized Note (Optional)</span>
+                            <span class="optional-tag">OPTIONAL</span>
+                        </label>
+                        <textarea
+                            id="customNote"
+                            class="form-textarea"
+                            rows="2"
+                            placeholder="e.g. Hi Alex, please review this 2-minute phishing awareness activity for our lab."
+                        ></textarea>
+                    </div>
+
+                    <!-- Safe Test Mode Checkbox -->
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input
+                                type="checkbox"
+                                id="chkDryRun"
+                                {% if not smtp_configured %}checked{% endif %}
+                            >
+                            <div class="check-box-custom"></div>
+                            <div class="check-label-text">
+                                <strong>Safe Test Mode (Dry Run)</strong>
+                                <span>Validate recipient and preview message without contacting Gmail SMTP servers.</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Feedback Alert Box -->
+                    <div id="inviteAlert" class="feedback-container hidden"></div>
+
+                    <!-- Form Action Buttons -->
+                    <div class="form-actions-row">
+                        <button type="button" id="btnSendInvite" class="btn btn-primary">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                            <span id="btnSendText">Send Invitation</span>
+                        </button>
+                        <button type="button" id="btnRefreshPreview" class="btn btn-secondary">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                            <span>Reset Form</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Transparency & Ethics Checklist -->
+                <div class="invite-ethics-box">
+                    <span class="ethics-title">Ethics & Anti-Deception Guarantees</span>
+                    <ul class="ethics-list">
+                        <li><strong>Transparent Branding:</strong> Subject and body clearly identify PhishAwareLab educational outreach.</li>
+                        <li><strong>Zero Credential Harvesting:</strong> No password inputs, deceptive landing pages, or login lures.</li>
+                        <li><strong>No Covert Tracking:</strong> Free of stealth open-tracking pixels and masked redirect URLs.</li>
+                        <li><strong>Safe Environment:</strong> Direct link to voluntary training portal with anonymous ID tracking.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Right: Live Email Preview Box -->
+            <section class="panel preview-panel">
+                <div class="panel-header">
+                    <div class="panel-title-group">
+                        <div class="panel-icon icon-cyan">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>Live Invitation Preview</h2>
+                            <p class="panel-sub">Inspect the exact message delivered to the recipient</p>
+                        </div>
+                    </div>
+                    <span class="pill-badge pill-blue">TRANSPARENT EMAIL</span>
+                </div>
+
+                <!-- Simulated Email Client Card -->
+                <div class="preview-mail-window">
+                    <div class="preview-mail-headers">
+                        <div class="preview-header-row">
+                            <span class="p-label">Subject:</span>
+                            <span class="p-value font-bold text-blue" id="previewSubject">[PhishAwareLab] Invitation to Volunteer Cybersecurity Awareness Training</span>
+                        </div>
+                        <div class="preview-header-row">
+                            <span class="p-label">From:</span>
+                            <span class="p-value">PhishAwareLab Outreach &lt;<span id="previewSender">{% if masked_sender %}{{ masked_sender }}{% else %}configured-gmail@gmail.com{% endif %}</span>&gt;</span>
+                        </div>
+                        <div class="preview-header-row">
+                            <span class="p-label">To:</span>
+                            <span class="p-value text-green font-mono" id="previewRecipient">volunteer@example.com</span>
+                        </div>
+                        <div class="preview-header-row">
+                            <span class="p-label">Date:</span>
+                            <span class="p-value" id="previewDate">Today</span>
+                        </div>
+                    </div>
+
+                    <!-- Email Body Container -->
+                    <div class="preview-mail-body">
+                        <p>Hello,</p>
+                        <p>
+                            You are invited to participate in a <strong>transparent, voluntary cybersecurity awareness training exercise</strong>
+                            hosted by the <strong>PhishAwareLab</strong> academic ethical hacking mini-project.
+                        </p>
+
+                        <!-- Live Custom Note Preview -->
+                        <div id="previewCustomNoteWrap" class="preview-custom-note hidden">
+                            <strong class="text-blue">Note from Sender:</strong>
+                            <p id="previewCustomNoteText"></p>
+                        </div>
+
+                        <div class="preview-learning-goals">
+                            <span class="goals-heading">What You Will Learn (2-3 Minutes):</span>
+                            <ul>
+                                <li>Spotting lookalike and spoofed sender email domains</li>
+                                <li>Identifying artificial urgency and psychological pressure tactics</li>
+                                <li>Inspecting deceptive hyperlink destinations</li>
+                            </ul>
+                        </div>
+
+                        <div class="preview-cta-center">
+                            <a href="/training?source=preview" target="_blank" class="btn btn-primary btn-preview-cta">
+                                Open Volunteer Training Portal &rarr;
+                            </a>
+                            <span class="preview-link-target">Target: http://127.0.0.1:5000/training?source=preview</span>
+                        </div>
+
+                        <div class="preview-privacy-callout">
+                            <strong>Privacy & Ethics Commitment:</strong> PhishAwareLab NEVER requests passwords, login credentials, or sensitive personal data. This invitation contains zero covert tracking pixels or deceptive redirects. Participation is 100% voluntary.
+                        </div>
+
+                        <p class="preview-signoff">
+                            Sincerely,<br>
+                            <strong>PhishAwareLab Project Team</strong><br>
+                            <em>Academic Cybersecurity Demonstration</em>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="footer-left">
+                <p><strong>PhishAwareLab</strong> • Academic Ethical Hacking & Cybersecurity Awareness Mini-Project</p>
+            </div>
+            <div class="footer-right">
+                <span class="status-shield">Strictly Consensual Outreach • Zero Deceptive Phishing</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Invitation Controller Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const recipientEmailInput = document.getElementById('recipientEmail');
+            const customNoteInput = document.getElementById('customNote');
+            const chkDryRun = document.getElementById('chkDryRun');
+            const btnSendInvite = document.getElementById('btnSendInvite');
+            const btnSendText = document.getElementById('btnSendText');
+            const btnRefreshPreview = document.getElementById('btnRefreshPreview');
+            const inviteAlert = document.getElementById('inviteAlert');
+
+            // Preview elements
+            const previewRecipient = document.getElementById('previewRecipient');
+            const previewCustomNoteWrap = document.getElementById('previewCustomNoteWrap');
+            const previewCustomNoteText = document.getElementById('previewCustomNoteText');
+            const previewDate = document.getElementById('previewDate');
+
+            // Format preview date
+            const now = new Date();
+            if (previewDate) {
+                previewDate.textContent = now.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+
+            // Toast helper
+            function showToast(message, type = 'info') {
+                const container = document.getElementById('toastContainer');
+                if (!container) return;
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.innerHTML = `<span>${message}</span>`;
+                container.appendChild(toast);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateY(10px)';
+                    setTimeout(() => toast.remove(), 300);
+                }, 4000);
+            }
+
+            // Live preview updates
+            function updateLivePreview() {
+                const emailVal = recipientEmailInput.value.trim();
+                previewRecipient.textContent = emailVal || 'volunteer@example.com';
+
+                const noteVal = customNoteInput.value.trim();
+                if (noteVal) {
+                    previewCustomNoteWrap.classList.remove('hidden');
+                    previewCustomNoteText.textContent = noteVal;
+                } else {
+                    previewCustomNoteWrap.classList.add('hidden');
+                    previewCustomNoteText.textContent = '';
+                }
+
+                // Update button text depending on Dry Run mode
+                if (chkDryRun.checked) {
+                    btnSendText.textContent = 'Simulate Send (Safe Test Mode)';
+                } else {
+                    btnSendText.textContent = 'Send Live Invitation (Gmail SMTP)';
+                }
+            }
+
+            recipientEmailInput.addEventListener('input', updateLivePreview);
+            customNoteInput.addEventListener('input', updateLivePreview);
+            chkDryRun.addEventListener('change', updateLivePreview);
+            updateLivePreview();
+
+            // Reset form
+            btnRefreshPreview.addEventListener('click', () => {
+                recipientEmailInput.value = '';
+                customNoteInput.value = '';
+                inviteAlert.classList.add('hidden');
+                updateLivePreview();
+                showToast('Invitation form reset.', 'info');
+            });
+
+            // Send invitation handler
+            btnSendInvite.addEventListener('click', async () => {
+                const recipientEmail = recipientEmailInput.value.trim();
+                const customNote = customNoteInput.value.trim();
+                const isDryRun = chkDryRun.checked;
+
+                // Client-side quick validation
+                if (!recipientEmail) {
+                    recipientEmailInput.focus();
+                    showToast('Please enter a recipient email address.', 'warning');
+                    inviteAlert.className = 'feedback-container feedback-warning';
+                    inviteAlert.classList.remove('hidden');
+                    inviteAlert.innerHTML = '<strong>Action Required:</strong> Please enter a recipient email address.';
+                    return;
+                }
+
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(recipientEmail)) {
+                    recipientEmailInput.focus();
+                    showToast('Invalid email address format.', 'warning');
+                    inviteAlert.className = 'feedback-container feedback-warning';
+                    inviteAlert.classList.remove('hidden');
+                    inviteAlert.innerHTML = '<strong>Format Error:</strong> Please enter a valid email address (e.g. volunteer@example.com).';
+                    return;
+                }
+
+                // UI loading state
+                btnSendInvite.disabled = true;
+                const originalText = btnSendText.textContent;
+                btnSendText.textContent = isDryRun ? 'Validating Test Preview...' : 'Connecting to Gmail SMTP...';
+
+                inviteAlert.className = 'feedback-container feedback-info';
+                inviteAlert.classList.remove('hidden');
+                inviteAlert.innerHTML = `<strong>Processing:</strong> ${isDryRun ? 'Validating invitation telemetry in Safe Test Mode...' : 'Connecting to smtp.gmail.com:587...'}`;
+
+                try {
+                    const res = await fetch('/api/invite/send', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            recipient_email: recipientEmail,
+                            custom_note: customNote,
+                            dry_run: isDryRun
+                        })
+                    });
+
+                    const data = await res.json();
+
+                    if (res.ok && data.success) {
+                        showToast(data.message, 'success');
+                        inviteAlert.className = 'feedback-container feedback-success';
+                        inviteAlert.innerHTML = `
+                            <div class="completion-banner">
+                                <div class="completion-icon">✓</div>
+                                <div>
+                                    <h4 class="text-green">${data.dry_run ? 'Safe Test Mode Confirmed' : 'Invitation Dispatched!'}</h4>
+                                    <p>${data.message}</p>
+                                    <div class="completion-action-links" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;">
+                                        <a href="/training?source=email" target="_blank" class="btn btn-secondary btn-sm">Open Volunteer Training Portal &rarr;</a>
+                                        <button type="button" id="btnSimulateOpenInvite" class="btn btn-outline btn-sm">Simulate Email Open (Demo)</button>
+                                        <a href="/" target="_blank" class="btn btn-primary btn-sm">View Telemetry on Dashboard &rarr;</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        const btnSimulateOpen = document.getElementById('btnSimulateOpenInvite');
+                        if (btnSimulateOpen) {
+                            btnSimulateOpen.addEventListener('click', async () => {
+                                btnSimulateOpen.disabled = true;
+                                try {
+                                    const openRes = await fetch('/api/event/opened', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ type: 'opened' })
+                                    });
+                                    const openData = await openRes.json();
+                                    if (openRes.ok && openData.success) {
+                                        showToast('Recorded manual/demo Email Open event!', 'success');
+                                        btnSimulateOpen.textContent = 'Email Open Recorded ✓';
+                                    }
+                                } catch (e) {
+                                    showToast('Could not record demo open event.', 'warning');
+                                    btnSimulateOpen.disabled = false;
+                                }
+                            });
+                        }
+                    } else {
+                        showToast(data.message || 'Failed to dispatch invitation.', 'warning');
+                        inviteAlert.className = 'feedback-container feedback-warning';
+                        inviteAlert.innerHTML = `<strong>Dispatch Notice:</strong> ${data.message}`;
+                    }
+                } catch (err) {
+                    showToast('Failed to reach local server.', 'warning');
+                    inviteAlert.className = 'feedback-container feedback-warning';
+                    inviteAlert.innerHTML = '<strong>Connection Error:</strong> Could not connect to the local PhishAwareLab server.';
+                } finally {
+                    btnSendInvite.disabled = false;
+                    btnSendText.textContent = originalText;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

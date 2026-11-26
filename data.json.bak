@@ -1,0 +1,108 @@
+{
+  "stats": {
+    "sent": 32,
+    "opened": 24,
+    "clicked": 15,
+    "submitted": 10
+  },
+  "status": "Simulation Active",
+  "is_running": false,
+  "recent_activity": [
+    {
+      "id": 1795242810603,
+      "user": "Volunteer 04",
+      "action": "Awareness test completed",
+      "type": "completed",
+      "details": "Volunteer completed suspicious email red flag analysis activity",
+      "timestamp": "12:03:30"
+    },
+    {
+      "id": 1795242810596,
+      "user": "Test User 18",
+      "action": "Awareness test completed",
+      "type": "completed",
+      "details": "Simulated awareness training & submission logged for Test User 18",
+      "timestamp": "12:03:30"
+    },
+    {
+      "id": 1795242810567,
+      "user": "Test User 17",
+      "action": "Training link interaction simulated",
+      "type": "clicked",
+      "details": "Interaction detected with educational link for Test User 17",
+      "timestamp": "12:03:30"
+    },
+    {
+      "id": 1795242810538,
+      "user": "Test User 06",
+      "action": "Test email opened",
+      "type": "opened",
+      "details": "Simulated security awareness email viewed by Test User 06",
+      "timestamp": "12:03:30"
+    },
+    {
+      "id": 1795242810507,
+      "user": "Test User 09",
+      "action": "Controlled test email sent",
+      "type": "sent",
+      "details": "Synthetic phishing scenario dispatched to Test User 09",
+      "timestamp": "12:03:30"
+    },
+    {
+      "id": 1795242449076,
+      "user": "Volunteer 04",
+      "action": "Training page visited",
+      "type": "opened",
+      "details": "Volunteer accessed the educational awareness portal",
+      "timestamp": "11:57:29"
+    },
+    {
+      "id": 1795242419338,
+      "user": "System",
+      "action": "Training invitation dispatched",
+      "type": "sent",
+      "details": "Educational awareness invitation sent to 143chinnasweety@gmail.com via Gmail SMTP",
+      "timestamp": "11:56:59"
+    },
+    {
+      "id": 1,
+      "user": "User 05",
+      "action": "Simulated submission recorded",
+      "type": "submitted",
+      "details": "Mock credential submission intercepted on sandbox training page",
+      "timestamp": "11:56:34"
+    },
+    {
+      "id": 2,
+      "user": "User 14",
+      "action": "Training link interaction simulated",
+      "type": "clicked",
+      "details": "Interaction detected with simulated awareness link",
+      "timestamp": "11:56:34"
+    },
+    {
+      "id": 3,
+      "user": "User 22",
+      "action": "Test email opened",
+      "type": "opened",
+      "details": "Simulated security advisory notification viewed",
+      "timestamp": "11:56:34"
+    },
+    {
+      "id": 4,
+      "user": "User 08",
+      "action": "Awareness test completed",
+      "type": "completed",
+      "details": "Completed instant feedback learning module on phishing indicators",
+      "timestamp": "11:56:34"
+    },
+    {
+      "id": 5,
+      "user": "System",
+      "action": "Simulation started",
+      "type": "system",
+      "details": "Ethical hacking training simulation baseline reset",
+      "timestamp": "11:56:34"
+    }
+  ]
+}

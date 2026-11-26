@@ -1,0 +1,216 @@
+{
+  "stats": {
+    "sent": 37,
+    "opened": 28,
+    "clicked": 20,
+    "submitted": 14,
+    "open_rate": 75.7,
+    "click_rate": 54.1,
+    "submit_rate": 37.8,
+    "completed": 14
+  },
+  "status": "Simulation Active",
+  "is_running": false,
+  "recent_activity": [
+    {
+      "id": 1795511309521,
+      "user": "Volunteer 47",
+      "action": "Awareness training completed",
+      "type": "completed",
+      "details": "Volunteer Volunteer 47 completed suspicious email red flag analysis activity",
+      "timestamp": "14:38:29"
+    },
+    {
+      "id": 1795511282603,
+      "user": "Volunteer 47",
+      "action": "Disclosed training link activated",
+      "type": "clicked",
+      "details": "Participant Volunteer 47 activated disclosed training portal link",
+      "timestamp": "14:38:02"
+    },
+    {
+      "id": 1795511208806,
+      "user": "Volunteer 11",
+      "action": "Awareness training completed",
+      "type": "completed",
+      "details": "Volunteer Volunteer 11 completed suspicious email red flag analysis activity",
+      "timestamp": "14:36:48"
+    },
+    {
+      "id": 1795511172086,
+      "user": "Volunteer 11",
+      "action": "Disclosed training link activated",
+      "type": "clicked",
+      "details": "Participant Volunteer 11 activated disclosed training portal link",
+      "timestamp": "14:36:12"
+    },
+    {
+      "id": 1795511166739,
+      "user": "Test User 28",
+      "action": "Email open interaction (Demo/Manual)",
+      "type": "opened",
+      "details": "Disclosed manual/demo email open recorded for Test User 28",
+      "timestamp": "14:36:06"
+    },
+    {
+      "id": 1795510937249,
+      "user": "System",
+      "action": "Training invitation dispatched (Live SMTP)",
+      "type": "sent",
+      "details": "Educational awareness invitation sent to uthejreddya@gmail.com via Gmail SMTP",
+      "timestamp": "14:32:17"
+    },
+    {
+      "id": 1795510648518,
+      "user": "Test User 14",
+      "action": "Email open interaction (Demo/Manual)",
+      "type": "opened",
+      "details": "Disclosed manual/demo email open recorded for Test User 14",
+      "timestamp": "14:27:28"
+    },
+    {
+      "id": 1795510635333,
+      "user": "Volunteer 87",
+      "action": "Awareness training completed",
+      "type": "completed",
+      "details": "Volunteer Volunteer 87 completed suspicious email red flag analysis activity",
+      "timestamp": "14:27:15"
+    },
+    {
+      "id": 1795510628981,
+      "user": "Volunteer 87",
+      "action": "Disclosed training link activated",
+      "type": "clicked",
+      "details": "Participant Volunteer 87 activated disclosed training portal link",
+      "timestamp": "14:27:08"
+    },
+    {
+      "id": 1795510584272,
+      "user": "System",
+      "action": "Training invitation dispatched (Live SMTP)",
+      "type": "sent",
+      "details": "Educational awareness invitation sent to uthejreddya@gmail.com via Gmail SMTP",
+      "timestamp": "14:26:24"
+    },
+    {
+      "id": 1795510528535,
+      "user": "Test User 18",
+      "action": "Email open interaction (Demo/Manual)",
+      "type": "opened",
+      "details": "Disclosed manual/demo email open recorded for Test User 18",
+      "timestamp": "14:25:28"
+    },
+    {
+      "id": 1795510527604,
+      "user": "Test User 03",
+      "action": "Email open interaction (Demo/Manual)",
+      "type": "opened",
+      "details": "Disclosed manual/demo email open recorded for Test User 03",
+      "timestamp": "14:25:27"
+    },
+    {
+      "id": 1795510480544,
+      "user": "System",
+      "action": "Training invitation dispatched (Live SMTP)",
+      "type": "sent",
+      "details": "Educational awareness invitation sent to 143chinnasweety@gmail.com via Gmail SMTP",
+      "timestamp": "14:24:40"
+    },
+    {
+      "id": 1795510244049,
+      "user": "System",
+      "action": "Training invitation simulated (Test Mode)",
+      "type": "sent",
+      "details": "Simulated training invitation generated for 143chinnasweety@gmail.com (Test Mode - No Real Email Dispatched)",
+      "timestamp": "14:20:44"
+    },
+    {
+      "id": 1795510226013,
+      "user": "Test User 02",
+      "action": "Awareness training completed",
+      "type": "completed",
+      "details": "Simulated awareness training & submission logged for Test User 02",
+      "timestamp": "14:20:26"
+    },
+    {
+      "id": 1795510225351,
+      "user": "Test User 22",
+      "action": "Disclosed training link activated",
+      "type": "clicked",
+      "details": "Participant Test User 22 activated disclosed training portal link",
+      "timestamp": "14:20:25"
+    },
+    {
+      "id": 1795510224635,
+      "user": "Test User 17",
+      "action": "Email open interaction (Demo/Manual)",
+      "type": "opened",
+      "details": "Disclosed manual/demo email open recorded for Test User 17",
+      "timestamp": "14:20:24"
+    },
+    {
+      "id": 1795510223824,
+      "user": "Test User 26",
+      "action": "Controlled test invitation sent",
+      "type": "sent",
+      "details": "Synthetic phishing scenario dispatched to Test User 26 (Simulated)",
+      "timestamp": "14:20:23"
+    },
+    {
+      "id": 1795320167041,
+      "user": "Volunteer 70",
+      "action": "Awareness training completed",
+      "type": "completed",
+      "details": "Volunteer Volunteer 70 completed suspicious email red flag analysis activity",
+      "timestamp": "09:32:47"
+    },
+    {
+      "id": 1795320160319,
+      "user": "Volunteer 70",
+      "action": "Disclosed training link activated",
+      "type": "clicked",
+      "details": "Participant Volunteer 70 activated disclosed training portal link",
+      "timestamp": "09:32:40"
+    },
+    {
+      "id": 1795320147840,
+      "user": "Volunteer 40",
+      "action": "Awareness training completed",
+      "type": "completed",
+      "details": "Volunteer Volunteer 40 completed suspicious email red flag analysis activity",
+      "timestamp": "09:32:27"
+    },
+    {
+      "id": 1795320131675,
+      "user": "Volunteer 40",
+      "action": "Disclosed training link activated",
+      "type": "clicked",
+      "details": "Participant Volunteer 40 activated disclosed training portal link",
+      "timestamp": "09:32:11"
+    },
+    {
+      "id": 1795320089535,
+      "user": "Test User 20",
+      "action": "Email open interaction (Demo/Manual)",
+      "type": "opened",
+      "details": "Disclosed manual/demo email open recorded for Test User 20",
+      "timestamp": "09:31:29"
+    },
+    {
+      "id": 1795320057828,
+      "user": "System",
+      "action": "Training invitation dispatched (Live SMTP)",
+      "type": "sent",
+      "details": "Educational awareness invitation sent to bsai242006@gmail.com via Gmail SMTP",
+      "timestamp": "09:30:57"
+    },
+    {
+      "id": 1795250327974,
+      "user": "System",
+      "action": "Training invitation dispatched",
+      "type": "sent",
+      "details": "Educational awareness invitation sent to 143chinnasweety@gmail.com via Gmail SMTP",
+      "timestamp": "14:08:47"
+    }
+  ]
+}

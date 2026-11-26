@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishAwareLab – Volunteer Cybersecurity Awareness Training</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Shared Cybersecurity Theme CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="dashboard-wrapper training-wrapper">
+        <!-- 1. Training Header -->
+        <header class="dashboard-header">
+            <div class="header-branding">
+                <div class="logo-shield">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <path d="M12 8v4"></path>
+                        <path d="M12 16h.01"></path>
+                    </svg>
+                </div>
+                <div class="header-titles">
+                    <div class="title-row">
+                        <h1>Volunteer Cybersecurity Awareness Training</h1>
+                        <span class="badge-mini badge-green">TRANSPARENT & CONSENT-BASED</span>
+                    </div>
+                    <p class="header-subtitle">PhishAwareLab Educational Simulation • Identifying Email Red Flags</p>
+                </div>
+            </div>
+
+            <div class="header-telemetry">
+                <a href="/" class="btn btn-secondary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    <span>Back to Dashboard</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- 2. Transparent Consent & Ethics Disclaimer -->
+        <section class="consent-notice-panel">
+            <div class="consent-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <div class="consent-text">
+                <h3>Voluntary Participation & Privacy Commitment</h3>
+                <p>
+                    This is an educational cybersecurity training activity designed to teach students and staff how to spot common phishing indicators.
+                    <strong>We do not collect passwords, email addresses, personal credentials, or sensitive data.</strong>
+                    Participation is 100% voluntary. Only anonymous telemetry (<span id="participantTag" class="text-blue">Volunteer --</span>) is recorded to demonstrate live lab tracking.
+                </p>
+            </div>
+        </section>
+
+        <!-- 3. Short Educational Activity: Identifying Suspicious Emails -->
+        <main class="training-main-grid">
+            <!-- Left: Mock Email Scenario -->
+            <section class="panel training-email-panel">
+                <div class="panel-header">
+                    <div class="panel-title-group">
+                        <div class="panel-icon icon-blue">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>Case Study: Analyzing a Suspicious Email</h2>
+                            <p class="panel-sub">Inspect the demonstration email sample below to spot social engineering cues</p>
+                        </div>
+                    </div>
+                    <span class="pill-badge pill-orange">SAMPLE LAB ARTIFACT</span>
+                </div>
+
+                <!-- Mock Email Container -->
+                <div class="mock-email-container">
+                    <div class="mock-email-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">From:</span>
+                            <span class="meta-value text-orange">IT Security Support &lt;security-alert@update-portal-auth.net&gt;</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">To:</span>
+                            <span class="meta-value">volunteer-recipient@campus.edu</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Date:</span>
+                            <span class="meta-value" id="emailMetaDate">Today, 09:14 AM</span>
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Subject:</span>
+                            <span class="meta-value text-red font-bold">URGENT: Your Account Password Expires in 2 Hours - Action Required!</span>
+                        </div>
+                    </div>
+
+                    <div class="mock-email-body">
+                        <p>Dear University User,</p>
+                        <p>
+                            We detected unusual sign-in activity on your university account. To avoid immediate suspension of your email and portal access,
+                            you are required to verify your active password and credentials within the next <strong>2 hours</strong>.
+                        </p>
+                        <div class="mock-email-action-box">
+                            <a href="#demo-link" class="mock-phish-button" onclick="return false;">
+                                Verify Credentials on Secure Gateway
+                            </a>
+                            <span class="mock-url-preview">Destination: http://university-portal-verify.biz/auth/login</span>
+                        </div>
+                        <p class="mock-warning-note">
+                            Failure to complete this verification will result in immediate termination of network privileges.
+                        </p>
+                        <p class="mock-signoff">
+                            University IT Helpdesk Operations<br>
+                            <em>Automated Security Daemon</em>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right: Interactive Red Flag Checklist & Voluntary Completion -->
+            <section class="panel training-action-panel">
+                <div class="panel-header">
+                    <div class="panel-title-group">
+                        <div class="panel-icon icon-cyan">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>Red Flag Analysis</h2>
+                            <p class="panel-sub">Check each suspicious indicator present in the sample</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Checklist Form -->
+                <form id="trainingForm" class="training-form" onsubmit="return false;">
+                    <div class="checklist-items">
+                        <label class="check-item">
+                            <input type="checkbox" id="flagSender" name="flags" value="sender">
+                            <div class="check-box-custom"></div>
+                            <div class="check-content">
+                                <span class="check-title">1. Mismatched / Spoofed Sender Domain</span>
+                                <span class="check-desc">Sender address uses <code>@update-portal-auth.net</code> instead of official campus domain.</span>
+                            </div>
+                        </label>
+
+                        <label class="check-item">
+                            <input type="checkbox" id="flagUrgency" name="flags" value="urgency">
+                            <div class="check-box-custom"></div>
+                            <div class="check-content">
+                                <span class="check-title">2. Artificial Urgency & Fear Tactics</span>
+                                <span class="check-desc">Claims "Action required in 2 hours or account locked" to cause panic and bypass scrutiny.</span>
+                            </div>
+                        </label>
+
+                        <label class="check-item">
+                            <input type="checkbox" id="flagUrl" name="flags" value="url">
+                            <div class="check-box-custom"></div>
+                            <div class="check-content">
+                                <span class="check-title">3. Deceptive Link Destination</span>
+                                <span class="check-desc">The button points to an external <code>.biz</code> web address rather than the official institutional portal.</span>
+                            </div>
+                        </label>
+
+                        <label class="check-item">
+                            <input type="checkbox" id="flagCredentials" name="flags" value="credentials">
+                            <div class="check-box-custom"></div>
+                            <div class="check-content">
+                                <span class="check-title">4. Unprompted Password Verification Request</span>
+                                <span class="check-desc">Legitimate administrators never ask you to input your current password via email links.</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Submission Feedback Box -->
+                    <div id="feedbackContainer" class="feedback-container hidden">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="training-btn-row">
+                        <button type="button" id="btnCheckAnswers" class="btn btn-secondary">
+                            <span>Review Indicators</span>
+                        </button>
+                        <button type="button" id="btnCompleteTraining" class="btn btn-primary">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>Complete Training Activity</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Session Telemetry Info -->
+                <div class="session-telemetry-box">
+                    <span class="telemetry-pill">
+                        <span class="telemetry-dot"></span>
+                        <span>Session Participant ID: <strong id="lblVolunteerId" class="text-blue">Volunteer --</strong></span>
+                    </span>
+                    <button type="button" id="btnNewVolunteer" class="btn btn-secondary btn-xs" style="font-size: 11px; padding: 3px 8px; margin-left: 8px;">New Session</button>
+                    <span class="telemetry-sub">Page visit auto-recorded • Completion logs to dashboard upon submission</span>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="footer-left">
+                <p><strong>PhishAwareLab</strong> • Academic Ethical Hacking & Cybersecurity Awareness Mini-Project</p>
+            </div>
+            <div class="footer-right">
+                <span class="status-shield">Safe Local Environment • Zero Personal Data or Credential Harvesting</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Training Client Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Retrieve or generate anonymous volunteer label for this session
+            let volunteerId = sessionStorage.getItem('phishaware_volunteer_id');
+            if (!volunteerId) {
+                const randomNum = Math.floor(Math.random() * 90) + 10;
+                volunteerId = `Volunteer ${randomNum}`;
+                sessionStorage.setItem('phishaware_volunteer_id', volunteerId);
+            }
+
+            // Update UI with participant ID
+            const lblVolunteerId = document.getElementById('lblVolunteerId');
+            const participantTag = document.getElementById('participantTag');
+            if (lblVolunteerId) lblVolunteerId.textContent = volunteerId;
+            if (participantTag) participantTag.textContent = volunteerId;
+
+            const emailMetaDate = document.getElementById('emailMetaDate');
+            if (emailMetaDate) {
+                const now = new Date();
+                emailMetaDate.textContent = `Today, ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+            }
+
+            // Toast helper
+            function showToast(message, type = 'info') {
+                const container = document.getElementById('toastContainer');
+                if (!container) return;
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.innerHTML = `<span>${message}</span>`;
+                container.appendChild(toast);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateY(10px)';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3500);
+            }
+
+            // 1. Disclosed Training Link Click Tracking
+            // Records the participant's disclosed training link arrival once per volunteer session
+            const sessionClickKey = `phishaware_clicked_${volunteerId}`;
+            if (!sessionStorage.getItem(sessionClickKey)) {
+                fetch('/api/training/event', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'clicked',
+                        volunteer_id: volunteerId
+                    })
+                }).then(r => r.json()).then(data => {
+                    if (data && data.success && !data.duplicate) {
+                        sessionStorage.setItem(sessionClickKey, 'true');
+                    }
+                }).catch(err => console.warn('Could not record click telemetry:', err));
+            }
+
+            // 2. Review Indicators Button
+            const btnCheckAnswers = document.getElementById('btnCheckAnswers');
+            const feedbackContainer = document.getElementById('feedbackContainer');
+
+            btnCheckAnswers.addEventListener('click', () => {
+                const checkedBoxes = document.querySelectorAll('input[name="flags"]:checked');
+                feedbackContainer.classList.remove('hidden');
+
+                if (checkedBoxes.length === 0) {
+                    feedbackContainer.className = 'feedback-container feedback-warning';
+                    feedbackContainer.innerHTML = `
+                        <strong>Notice:</strong> Please select at least one red flag from the checklist above to analyze the scenario.
+                    `;
+                } else if (checkedBoxes.length < 4) {
+                    feedbackContainer.className = 'feedback-container feedback-info';
+                    feedbackContainer.innerHTML = `
+                        <strong>Good Progress:</strong> You spotted ${checkedBoxes.length} of 4 red flags. Take another look: notice the mismatched <em>.biz</em> domain and the high-pressure 2-hour deadline!
+                    `;
+                } else {
+                    feedbackContainer.className = 'feedback-container feedback-success';
+                    feedbackContainer.innerHTML = `
+                        <strong>Excellent Detection:</strong> You correctly identified all 4 critical red flags:
+                        <ul>
+                            <li>Lookalike domain <code>@update-portal-auth.net</code></li>
+                            <li>Urgent 2-hour deadline designed to bypass logical thinking</li>
+                            <li>External destination link pointing to <code>.biz</code></li>
+                            <li>Unsolicited credential verification prompt</li>
+                        </ul>
+                    `;
+                }
+            });
+
+            // Check if already completed in this session
+            const sessionCompKey = `phishaware_completed_${volunteerId}`;
+            const btnCompleteTraining = document.getElementById('btnCompleteTraining');
+            if (sessionStorage.getItem(sessionCompKey)) {
+                btnCompleteTraining.disabled = true;
+                btnCompleteTraining.textContent = 'Activity Completed ✓';
+            }
+            btnCompleteTraining.addEventListener('click', async () => {
+                const checkedBoxes = document.querySelectorAll('input[name="flags"]:checked');
+                
+                if (checkedBoxes.length === 0) {
+                    showToast('Please check the red flags you identified before completing.', 'warning');
+                    feedbackContainer.classList.remove('hidden');
+                    feedbackContainer.className = 'feedback-container feedback-warning';
+                    feedbackContainer.innerHTML = '<strong>Action Required:</strong> Review and check the red flags before marking completion.';
+                    return;
+                }
+
+                btnCompleteTraining.disabled = true;
+                btnCompleteTraining.textContent = 'Recording Completion...';
+
+                try {
+                    const res = await fetch('/api/training/event', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            type: 'complete',
+                            volunteer_id: volunteerId
+                        })
+                    });
+                    const result = await res.json();
+
+                    if (res.ok && result.success) {
+                        if (result.duplicate) {
+                            showToast(`Activity completion was already recorded for ${volunteerId}.`, 'info');
+                            feedbackContainer.classList.remove('hidden');
+                            feedbackContainer.className = 'feedback-container feedback-info';
+                            feedbackContainer.innerHTML = `
+                                <strong>Notice:</strong> Activity was already recorded as completed for <strong>${volunteerId}</strong>. Each participant's completion is counted once.
+                                <div class="completion-action-links" style="margin-top: 10px;">
+                                    <a href="/" class="btn btn-secondary btn-sm">View Live on Dashboard →</a>
+                                </div>
+                            `;
+                        } else {
+                            feedbackContainer.classList.remove('hidden');
+                            feedbackContainer.className = 'feedback-container feedback-success';
+                            feedbackContainer.innerHTML = `
+                                <div class="completion-banner">
+                                    <div class="completion-icon">✓</div>
+                                    <div>
+                                        <h4 class="text-green">Training Successfully Completed!</h4>
+                                        <p>Thank you for participating in this voluntary educational cybersecurity module. Your completion has been safely recorded on the PhishAwareLab dashboard under <strong>${volunteerId}</strong> without collecting any personal data.</p>
+                                        <div class="completion-action-links">
+                                            <a href="/" class="btn btn-primary btn-sm">View Live on Dashboard →</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            showToast(`Training completion recorded for ${volunteerId}!`, 'success');
+                            sessionStorage.setItem(sessionCompKey, 'true');
+                        }
+                        btnCompleteTraining.textContent = 'Activity Completed ✓';
+                    } else {
+                        showToast(result.message || 'Error recording completion', 'warning');
+                        btnCompleteTraining.disabled = false;
+                        btnCompleteTraining.textContent = 'Complete Training Activity';
+                    }
+                } catch (err) {
+                    showToast('Failed to connect to simulation server.', 'warning');
+                    btnCompleteTraining.disabled = false;
+                    btnCompleteTraining.textContent = 'Complete Training Activity';
+                }
+            });
+
+            // New Volunteer Session Helper
+            const btnNewVolunteer = document.getElementById('btnNewVolunteer');
+            if (btnNewVolunteer) {
+                btnNewVolunteer.addEventListener('click', () => {
+                    sessionStorage.removeItem('phishaware_volunteer_id');
+                    sessionStorage.removeItem(`phishaware_clicked_${volunteerId}`);
+                    sessionStorage.removeItem(`phishaware_completed_${volunteerId}`);
+                    window.location.reload();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

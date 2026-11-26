@@ -1,0 +1,63 @@
+{
+  "stats": {
+    "sent": 31,
+    "opened": 22,
+    "clicked": 14,
+    "submitted": 8,
+    "open_rate": 71.0,
+    "click_rate": 45.2,
+    "submit_rate": 25.8
+  },
+  "status": "Simulation Active",
+  "is_running": false,
+  "recent_activity": [
+    {
+      "id": 1795250327974,
+      "user": "System",
+      "action": "Training invitation dispatched",
+      "type": "sent",
+      "details": "Educational awareness invitation sent to 143chinnasweety@gmail.com via Gmail SMTP",
+      "timestamp": "14:08:47"
+    },
+    {
+      "id": 1,
+      "user": "User 05",
+      "action": "Simulated submission recorded",
+      "type": "submitted",
+      "details": "Mock credential submission intercepted on sandbox training page",
+      "timestamp": "14:08:20"
+    },
+    {
+      "id": 2,
+      "user": "User 14",
+      "action": "Training link interaction simulated",
+      "type": "clicked",
+      "details": "Interaction detected with simulated awareness link",
+      "timestamp": "14:08:20"
+    },
+    {
+      "id": 3,
+      "user": "User 22",
+      "action": "Test email opened",
+      "type": "opened",
+      "details": "Simulated security advisory notification viewed",
+      "timestamp": "14:08:20"
+    },
+    {
+      "id": 4,
+      "user": "User 08",
+      "action": "Awareness test completed",
+      "type": "completed",
+      "details": "Completed instant feedback learning module on phishing indicators",
+      "timestamp": "14:08:20"
+    },
+    {
+      "id": 5,
+      "user": "System",
+      "action": "Simulation started",
+      "type": "system",
+      "details": "Ethical hacking training simulation baseline reset",
+      "timestamp": "14:08:20"
+    }
+  ]
+}
